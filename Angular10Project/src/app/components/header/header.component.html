@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+  <a mat-button [routerLink]="['']">From Zero to Hero</a>
+
+  <div class="spacer"></div>
+
+  <a mat-button [routerLink]="['/image']" routerLinkActive="router-link-active"
+    >Image</a
+  >
+  <a
+    mat-button
+    [routerLink]="['/deferred-views']"
+    routerLinkActive="router-link-active"
+    >Deferred views</a
+  >
+
+  <a mat-button [routerLink]="['/dialog']" routerLinkActive="router-link-active"
+    >Dialog</a
+  >
+
+  <a mat-button [routerLink]="['/heavy']" routerLinkActive="router-link-active"
+    >Heavy</a
+  >
+
+  <a
+    mat-button
+    [routerLink]="['/change-detection']"
+    routerLinkActive="router-link-active"
+    >Change detection</a
+  >
+
+  <a
+    mat-button
+    [routerLink]="['/unsubscribe']"
+    routerLinkActive="router-link-active"
+    >Unsubscribe</a
+  >
+
+  <div class="spacer"></div>
+</mat-toolbar>

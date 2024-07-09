@@ -1,0 +1,23 @@
+<h2>Pagina Change Detection</h2>
+
+<div>
+  <p>
+    Questa pagina contiene due elmenti: un timer che aggiorna un counter e un
+    bottone che aggiorna un counter. Serve a capire il funzionamento della
+    change detection.
+  </p>
+
+  <p>
+    Se si attiva la CDR OnPush sarà necessario sostituire quell'elemento timer
+    con qualcosa di reattivo: un signal o un behaviorsubject/subject.
+  </p>
+</div>
+
+<div>
+  <p><strong>Timer counter:</strong> {{ timer }}</p>
+  <p><strong>Button click counter:</strong> {{ clicks }}</p>
+
+  <button mat-raised-button color="primary" (click)="clicks = clicks + 1">
+    Click me
+  </button>
+</div>

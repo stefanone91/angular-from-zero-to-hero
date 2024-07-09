@@ -1,0 +1,31 @@
+<h2>Pagina con immagine</h2>
+
+<div>
+  <p>Questa è una pagina contenente un'immagine.</p>
+  <p>La procedura di ottimizzazione che utilizzeremo sarà la seguente:</p>
+  <ul>
+    <li>
+      usare la componente NgOptimizedImage che permette di forzare le best
+      practice sulle immagini in modo da ottimizzare la SEO ed evitare i layout
+      shifting
+    </li>
+    <li>
+      usare una CDN per fornire l'immagine in più formati e dimensioni per
+      ottimizzarne il caricamento
+    </li>
+  </ul>
+
+  <div>
+    <img src="/assets/immagine_test.jpg" />
+  </div>
+
+  <p>
+    <strong
+      >Come si può vedere l'immagine viene caricata con le dimensioni massime,
+      non possiede un attributo alt che descriva il contenuto, non possiede
+      delle dimensioni definite. In qualunque dispositivo viene caricata a
+      grandezza naturale e quindi con il massimo del peso (vedi chrome dev
+      tools- tab network)</strong
+    >
+  </p>
+</div>

@@ -1,0 +1,42 @@
+<h2>Pagina con contenuti deferrable</h2>
+
+<div>
+  <p>
+    Questa è una pagina contenente dei contenuti grafici che possono essere
+    caricati on-demand invece che tutti in blocco.
+  </p>
+  <p>La procedura di ottimizzazione che utilizzeremo sarà la seguente:</p>
+  <ul>
+    <li>Splittare le view in più deferrable views</li>
+  </ul>
+  <p>
+    <strong
+      >Come si può vedere prima e dopo lo split, all'interno della tab network
+      dei dev tools, sono stati risparmiati alcuni kb di caricamento al boot
+      dell'applicazione. L'esperienza utente ne beneficia.</strong
+    >
+  </p>
+</div>
+
+<div>
+  <mat-form-field>
+    <mat-label>Select one argument</mat-label>
+    <mat-select [formControl]="formControl">
+      <mat-option value="prettier">Prettier</mat-option>
+      <mat-option value="eslint">ESLint</mat-option>
+      <mat-option value="husky">Husky</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div [ngSwitch]="formControl.value">
+    <div *ngSwitchCase="'prettier'">
+      <app-prettier></app-prettier>
+    </div>
+    <div *ngSwitchCase="'eslint'">
+      <app-eslint></app-eslint>
+    </div>
+    <div *ngSwitchCase="'husky'">
+      <app-husky></app-husky>
+    </div>
+  </div>
+</div>

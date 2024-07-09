@@ -1,0 +1,24 @@
+<input
+  #fileInput
+  type="file"
+  [accept]="accept"
+  [multiple]="false"
+  class="hidden"
+  (change)="handleFileChange($event)"
+/>
+
+<div class="uploader__wrapper">
+  <div *ngIf="!value" class="uploader__empty" (click)="fileInput.click()">
+    <span
+      >Click
+      <br />
+      or
+      <br />
+      drop files here</span
+    >
+  </div>
+
+  <div *ngIf="value" class="uploader__filled">
+    <mat-icon>image</mat-icon>
+  </div>
+</div>
