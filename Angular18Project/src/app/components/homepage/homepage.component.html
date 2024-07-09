@@ -1,0 +1,351 @@
+<div>
+  <p class="mat-h1">
+    Clicca su una delle voci di menu per espanderne il contenuto
+  </p>
+
+  <mat-accordion>
+    <!-- Linting e beautify -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Linting e beautify</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <p>
+          Per prima cosa sarà necessario installare i tool di linting e
+          beautify: ESlint, Prettier, Husky, lint-staged qualora non siano
+          presenti. Alcuni tool richiedono delel configurazion ad hoc per
+          Angular che sono facilmente reperibili online.
+        </p>
+        <p>
+          <small>
+            <i
+              >N.B.: nelle versioni più recenti di node è già presente un
+              sistema per eseguire degli script in fase di pre-commit. Questo
+              renderà inutile in futuro l'utilizzo di Husky.
+            </i>
+          </small>
+        </p>
+
+        <br />
+
+        <p>
+          Guida per
+          <a href="https://eslint.org/docs/latest/use/getting-started"
+            >installare ESlint</a
+          >
+        </p>
+        <div class="terminal">
+          <pre>
+npm init @eslint/config@latest
+</pre
+          >
+        </div>
+
+        <br />
+
+        <p>
+          Guida per
+          <a href="https://prettier.io/docs/en/install.html"
+            >installare Prettier</a
+          >
+        </p>
+        <div class="terminal">
+          <pre>
+npm install --save-dev --save-exact prettier
+</pre
+          >
+        </div>
+
+        <br />
+
+        <p>
+          Guida per
+          <a href="https://typicode.github.io/husky/get-started.html"
+            >installare Husky</a
+          >
+        </p>
+        <div class="terminal">
+          <pre>
+npm install --save-dev husky
+npx husky init
+</pre
+          >
+        </div>
+        <p>Add this to package.json:</p>
+        <div class="terminal">
+          <pre
+            >{{ "{" }}
+  "lint-staged": {{ "{" }}
+    "**/*": "prettier --write --ignore-unknown"
+  {{ "}" }}
+{{ "}" }}
+</pre
+          >
+        </div>
+
+        <br />
+
+        <p>
+          Guida per
+          <a href="https://github.com/lint-staged/lint-staged"
+            >installare lint-staged</a
+          >
+        </p>
+        <div class="terminal">
+          <pre>npm install --save-dev lint-staged</pre>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Alberatura -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Alberatura</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <p>
+          Creare una cartella “services” con dentro 50+ elementi, una cartella
+          “models” con dentro altri 50+ elementi, ecc. è
+          <b>TROPPO DISPERSIVO!</b>
+          <br />
+          <b>La cosa migliore è organizzare il codice a “feature”.</b> Un
+          esempio potrebbe essere quello di creare una cartella che riguarda gli
+          users che conterrà al suo interno users.service.ts, users.models.ts,
+          users.const.ts, ecc ed esportare tutto creando un file index.ts.
+          Tendenzialmente i models e services vanno usati assieme e non ha senso
+          cercarli in posti differenti. Supponiamo poi di voler rimuovere una
+          funzionalità: nel caso di una struttura ben organizzata mi basterà
+          cancellare la cartella et voilà, non lascio residui nel codice.
+        </p>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Moduli e standalone components -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title
+          ><h2>Moduli e standalone components</h2></mat-panel-title
+        >
+      </mat-expansion-panel-header>
+      <div>
+        La definizione di moduli o di standalone components permette una
+        scrittura del codice più pulita. Infatti non viene inserito tutto
+        all'interno di un unico file (tendenzialmente app.module.ts) bensì si
+        dividono gli elementi e le loro dipendenze, mantenendo piu ordine e una
+        migliore pulizia in fase di refactoring. Per la conversione in
+        moduli/standalone components è necessario però procedere prima dagli
+        elementi condivisi (es: layout di tabelle, elementi drag n drop ecc) che
+        non hanno altre dipendenze. Solo dopo si può applicare la suddivisione
+        in moduli a componenti più di alto livello (es: pagine). Questo perchè
+        se iniziassimo a convertire in moduli le pagine e avessimo una
+        componente tipo un dnd usata su entrambe le pagine, ci troveremmo ad
+        avere un erroe di compilazione in quanto non è possibile inserire la
+        componente dnd nella declarations di due moduli diversi. Discorso
+        diverso invece per i moduli che possono essere indicati negli imports di
+        più moduli.
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Lazy loading -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Lazy loading</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        Definiti i moduli è possibile applicare alcune tecniche di lazy loading,
+        ossia il
+        <b>caricamento differito di parti di applicazione a richiesta</b>. I
+        tipi sono i seguenti:
+        <ul>
+          <li>Routes lazy loading</li>
+          <li>Libraries lazy loading</li>
+          <li>Dialogs lazy loading</li>
+          <li>Components lazy loading</li>
+        </ul>
+        Tutte queste tecniche comportano un caricamento <b>asincrono</b>, quindi
+        non va assolutamente dimenticato di dare, dove possibile, un
+        <b
+          >feedback visivo all'utente sia in caso di caricamento che in caso di
+          errore!</b
+        >
+        Esempio:
+        <div class="terminal">
+          <pre
+            >{{ "{" }}
+  path: "",
+  canActivate: [canActivateAuth],
+  component: LayoutComponent,
+  children: [
+    {{ "{" }}
+      path: "",
+      loadComponent: () => import("./components/homepage/homepage.component").then(x => x.HomepageComponent)
+    {{ "}" }},
+    {{ "{" }}
+      path: "users",
+      loadChildren: () => import("./components/users/users.module").then(x => x.UsersModule)
+    {{ "}" }},
+{{ "}" }}
+</pre
+          >
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Unsubscribe -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Unsubscribe</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        Parlando di RxJS è necessario tirare in ballo due concetti: Observables
+        e Subscriptions. Cosa cambia tra i due? Gli observable sono degli
+        elementi che identificano una funzione (pipe) che viene eseguita
+        solamente se qualcuno effettua una subscription. Questo significa che se
+        definisco 3 observable, ma non li richiamo in nessun modo (via
+        .subscribe() o mediante pipe | async di angular o combinandoli tra loro)
+        le funzioni non vengono eseguite. È importante
+        <b>effettuare l’unsubscribe delle subscriptions</b>,
+        <b>altrimenti</b> si richia di creare continuamente degli “ascoltatori”
+        di eventi che generano dei <b>memory leak</b>.
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Change Detection -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Change Detection</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        In Angular, il processo di Change Detection (rilevamento delle
+        modifiche) sebbene esista da parecchie versioni, è spesso totalmente
+        ignorato. Tale processo è necessario per mantenere l'interfaccia
+        sincronizzata con lo stato interno dell'applicazione. Esso consente al
+        framework di
+        <b
+          >aggiornare automaticamente il DOM al cambiamento dello stato
+          dell'applicazione</b
+        >.
+        <br />
+        Due sono le tipologie di CD:
+        <ul>
+          <li>
+            La <b>ChangeDetectionStrategy Default</b> è quella meno vincolante
+            ma allo stesso tempo quella meno performante. Infatti il
+            comportamento di default permette di aggiornare il DOM ogni volta
+            che avviene un’interazione con l’app da parte dell’utente: movimenti
+            del mouse, click, input, risposte http, ecc. È facilmente intuibile
+            che questo comportamento provoca innumerevoli
+            <b>re-rendering inutili</b>.
+          </li>
+          <li>
+            L’alternativa è la <b>ChangeDetectionStrategy di tipo OnPush</b>.
+            Questa permette di aggiornare il DOM solamente se si verifica uno o
+            più di questi eventi:
+            <b
+              ><ul>
+                <li>Input in ingresso</li>
+                <li>Output in uscita</li>
+                <li>Signal che cambia</li>
+                <li>Observable che cambia (ATTENZIONE: NON subscription!)</li>
+              </ul></b
+            >
+            Sfruttando correttamente i signals/observables/behavior subject,
+            l’applicaizone ne beneficierà notevomente
+          </li>
+        </ul>
+        Attenzione! Applicando la CD OnPush ad una componente padre, anche i
+        figli verranno aggiornati mediante OnPush nonostante abbiano la CD
+        Default! Anche in questo caso è necessario procedere quindi partendo
+        dalle componenti figlie.
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Image Optimization -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Image Optimization</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        NgOptimizedImage è una direttiva di Angular che ci aiuta ad ottimizzare
+        il caricamento delle immagini, portando benefici non solo in termini di
+        performance ma anche in ottica SEO. Anche se i reali benefici si
+        manifestano usando una CDN, tale direttiva permette di prevenire i
+        cosiddetti layout-shift forzando lo sviluppatore ad indicare width,
+        height e priority. È possibile selezionare uno dei loaders predefiniti o
+        crearne uno ad hoc. Il funzionamento di questi loader è quello di
+        generare dinamicamente un url che permetta di scaricare la risorsa
+        richiesta, ad esempio limitandone la dimensione sulla base della
+        larghezza dello schermo.
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Typescript -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title><h2>Typescript</h2></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        Uno degli errori più comuni che si fanno è <b>L'abuso di any</b>. Se
+        dobbiamo usare any tantovale non usare typescript! Questo linguaggio è
+        molto potente e versatile e l'uso di classi/interfacce/tipi/enum
+        definiti permette di effettuare dei <b>refactory sicuri</b>. Tante volte
+        viene usato any su dei service in quanto questi possono restituire dati
+        diversi a seconda di chi chiama quel metodo e la maggior parte delel
+        volte il metodo restituito è "any". Nulla di più sbagliato! Oltre alle
+        consuete utilities tipo <b>Pick, Partial, Omit, Required</b>, è
+        possibile indicare dei tipi compositi ad esempio.
+        <br />
+        Osserviamo:
+
+        <div class="terminal">
+          <pre>
+getUsers(params: GetUsersRequest): PaginatedResponse&lt;User&gt; {{ "{" }}
+    // Omitted
+{{ "}" }}
+
+getPosts(params: GetPostsRequest): PaginatedResponse&lt;Post&gt; {{ "{" }}
+    // Omitted
+{{ "}" }}
+</pre
+          >
+        </div>
+        Come si può notare l'interfaccia PaginatedResponse è usata su più metodi
+        che restituiscono risposte simili anche se non uguali. Tale interfaccia
+        permette di mettere a fattor comune il codice uguale e di richiedere in
+        input un tipo riguardante la lista degli elementi.
+
+        <div class="terminal">
+          <pre>
+export interface PaginatedResponse&lt;T&gt; {{ "{" }}
+  itemCount: number;
+  itemsPerPage: number;
+  currentPage: number;
+  totalItems: number;
+  totalPages: number;
+  items: T;
+{{ "}" }}
+</pre
+          >
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- Clouds -->
+  <svg
+    id="clouds"
+    alt="Gray Clouds Background"
+    xmlns="http://www.w3.org/2000/svg"
+    width="2611.084"
+    height="485.677"
+    viewBox="0 0 2611.084 485.677"
+  >
+    <path
+      id="Path_39"
+      data-name="Path 39"
+      d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+      transform="translate(142.69 -634.312)"
+      fill="#eee"
+    />
+  </svg>
+</div>

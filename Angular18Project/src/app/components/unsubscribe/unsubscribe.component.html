@@ -1,0 +1,24 @@
+<h2>Pagina unsubscribe</h2>
+
+<p>
+  Questa sezione vuole mostrare l'importanza di effettuare l'unsubscribe delle
+  subscriptions (e il clear degli intervalli) in modo da evitare i cosiddetti
+  "memory leaks" ossia delle situazioni in cui la memoria usata continua a
+  salire fino a provocare dei crash applicativi
+</p>
+
+<p>
+  e' fondamenteale ricordarsi di effettuare l'unsubscribe delle pipes RxJS. Le
+  modalità sono le seguenti:
+</p>
+
+<ul>
+  <li>Chiamare .unsubscribe()</li>
+  <li>Usere l'operator takeUntil()</li>
+  <li>Usere la pipe async di angular</li>
+</ul>
+
+<h3><strong>Utente senza unsubscribe:</strong></h3>
+<p>
+  {{ users | json }}
+</p>
