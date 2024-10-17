@@ -8,9 +8,8 @@ describe('ChangeDetectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChangeDetectionComponent ]
-    })
-    .compileComponents();
+      declarations: [ChangeDetectionComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

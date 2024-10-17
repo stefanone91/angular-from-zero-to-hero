@@ -11,3 +11,7 @@ export interface User {
   website: string;
   company: Company;
 }
+
+export type CreateUserRequest = Omit<User, 'id'>;
+
+export type UpdateUserRequest = User;

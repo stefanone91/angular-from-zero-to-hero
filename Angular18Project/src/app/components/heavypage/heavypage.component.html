@@ -2,29 +2,22 @@
 
 <div>
   <p>
-    Questa è una pagina contenente una libreria piuttosto pesante (pdf-lib) per
-    effettuare la creazione di un pdf a partire da un'immagine.
+    Questa è una pagina contenente una libreria piuttosto pesante (pdf-lib) per effettuare la creazione di un pdf a partire da un'immagine.
   </p>
   <p>La procedura di ottimizzazione che utilizzeremo sarà la seguente:</p>
   <ul>
     <li>
-      Splittare la libreria installata via npm dal chunk "vendors" che è quello
-      che racchiude tutti i node modules usati (vedi dependencies in
-      package.json).
+      Splittare la libreria installata via npm dal chunk "vendors" che è quello che racchiude tutti i node modules usati (vedi dependencies
+      in package.json).
     </li>
-    <li>
-      Caricare la libreria in modo asincrono solamente quando richiesto, ossia
-      dopo il submit del form.
-    </li>
+    <li>Caricare la libreria in modo asincrono solamente quando richiesto, ossia dopo il submit del form.</li>
   </ul>
   <p>
-    <strong
-      >Come si può vedere prima e dopo lo split, all'interno della tab network
-      dei dev tools, sono stati risparmiati diversi mega di caricamento al boot
-      dell'applicazione.L'esperienza utente ne beneficia moltissimo anche perchè
-      probabilmente questa interazione verrà compiuta poche volte da parte
-      dell'utente.</strong
-    >
+    <strong>
+      Come si può vedere prima e dopo lo split, all'interno della tab network dei dev tools, sono stati risparmiati diversi mega di
+      caricamento al boot dell'applicazione.L'esperienza utente ne beneficia moltissimo anche perchè probabilmente questa interazione verrà
+      compiuta poche volte da parte dell'utente.
+    </strong>
   </p>
 </div>
 
@@ -32,15 +25,9 @@
   <form [formGroup]="form" (submit)="handleSubmit()">
     <div>
       <mat-label>Immagine</mat-label>
-      <app-uploader-dnd
-        matInput
-        formControlName="image"
-        accept="image/*"
-      ></app-uploader-dnd>
+      <app-uploader-dnd matInput formControlName="image" accept="image/*"></app-uploader-dnd>
     </div>
 
-    <button mat-flat-button [color]="'primary'" [disabled]="form.invalid">
-      Conferma
-    </button>
+    <button mat-flat-button [color]="'primary'" [disabled]="form.invalid">Conferma</button>
   </form>
 </div>

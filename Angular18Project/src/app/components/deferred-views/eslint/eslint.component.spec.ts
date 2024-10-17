@@ -8,9 +8,8 @@ describe('EslintComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EslintComponent ]
-    })
-    .compileComponents();
+      declarations: [EslintComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

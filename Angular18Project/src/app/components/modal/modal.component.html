@@ -1,26 +1,19 @@
 <h2>Pagina con dialogo</h2>
 
 <div>
-  <p>
-    Questa è una pagina contenente una componente che può essere caricata
-    on-demand invece che nel blocco iniziale.
-  </p>
+  <p>Questa è una pagina contenente una componente che può essere caricata on-demand invece che nel blocco iniziale.</p>
   <p>La procedura di ottimizzazione che utilizzeremo sarà la seguente:</p>
   <ul>
     <li>Caricare il dialogo on-demand</li>
   </ul>
   <p>
-    <strong
-      >Come si può vedere all'interno della tab network dei dev tools, sono
-      stati risparmiati diversi kb di caricamento al boot dell'applicazione. Il
-      dialogo infatti viene scaricato solo a richiesta e l'esperienza utente ne
-      beneficia.</strong
-    >
+    <strong>
+      Come si può vedere all'interno della tab network dei dev tools, sono stati risparmiati diversi kb di caricamento al boot
+      dell'applicazione. Il dialogo infatti viene scaricato solo a richiesta e l'esperienza utente ne beneficia.
+    </strong>
   </p>
 
   <div>
-    <button mat-raised-button color="primary" (click)="handleDialogOpen()">
-      Click to open
-    </button>
+    <button mat-raised-button color="primary" (click)="handleDialogOpen()">Click to open</button>
   </div>
 </div>

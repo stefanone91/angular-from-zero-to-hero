@@ -8,7 +8,7 @@ describe('DeferredViewsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DeferredViewsComponent],
+      declarations: [DeferredViewsComponent]
     }).compileComponents();
   });
 

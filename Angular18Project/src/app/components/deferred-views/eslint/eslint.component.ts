@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-eslint',
   templateUrl: './eslint.component.html',
-  styleUrls: ['./eslint.component.scss']
+  styleUrls: ['./eslint.component.scss'],
+  standalone: true
 })
-export class EslintComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class EslintComponent {}

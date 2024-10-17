@@ -1,28 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { timer } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { User } from 'src/app/models/user.models';
-import { UsersService } from 'src/app/services/users.service';
+import { UsersService } from 'src/app/features/users';
 
 @Component({
   selector: 'app-unsubscribe',
+  standalone: true,
+  imports: [JsonPipe, AsyncPipe],
   templateUrl: './unsubscribe.component.html',
-  styleUrls: ['./unsubscribe.component.scss'],
+  styleUrls: ['./unsubscribe.component.scss']
 })
-export class UnsubscribeComponent implements OnInit {
-  users: User[] = [];
+export class UnsubscribeComponent {
+  usersService = inject(UsersService);
 
-  constructor(private readonly usersService: UsersService) {}
-
-  ngOnInit(): void {
-    // Missing unsubscribe
-    timer(0, 1000)
-      .pipe(
-        tap(() => console.log('Calling users API...')),
-        switchMap(() => this.usersService.getUsers())
-      )
-      .subscribe((response) => {
-        this.users = response;
-      });
-  }
+  users$ = timer(0, 1000).pipe(
+    tap(() => console.log('Calling users API...')),
+    switchMap(() => this.usersService.getUsers())
+  );
 }

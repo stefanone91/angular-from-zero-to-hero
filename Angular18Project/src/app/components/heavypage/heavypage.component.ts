@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PdfService } from 'src/app/services/pdf.service';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatLabel } from '@angular/material/form-field';
+import { PdfService } from 'src/app/features/pdf';
+import { UploaderDndComponent } from '../uploader-dnd/uploader-dnd.component';
 
 @Component({
   selector: 'app-heavypage',
+  standalone: true,
+  imports: [ReactiveFormsModule, MatButton, MatLabel, UploaderDndComponent],
   templateUrl: './heavypage.component.html',
-  styleUrls: ['./heavypage.component.scss'],
+  styleUrls: ['./heavypage.component.scss']
 })
-export class HeavypageComponent implements OnInit {
-  form = new FormGroup({
-    image: new FormControl(null, [Validators.required]),
+export class HeavypageComponent {
+  private readonly fb = inject(FormBuilder);
+  private readonly pdfService = inject(PdfService);
+
+  form = this.fb.nonNullable.group({
+    image: this.fb.nonNullable.control<Blob | null>(null, [Validators.required])
   });
-
-  constructor(private readonly pdfService: PdfService) {}
-
-  ngOnInit(): void {}
 
   async handleSubmit() {
     if (this.form.invalid) {
       return;
     }
-    const image = this.form.get('image').value;
+    const image = this.form.value.image!;
     const blob = await this.pdfService.convertImageToPDF(image);
-    await this.pdfService.viewFile(
-      blob,
-      'application/pdf',
-      'image_from_pdf.pdf'
-    );
+    await this.pdfService.viewFile(blob, 'application/pdf', 'image_from_pdf.pdf');
   }
 }

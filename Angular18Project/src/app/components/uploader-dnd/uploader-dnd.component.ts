@@ -1,31 +1,30 @@
-import { Component, Input, OnInit, ViewChild, forwardRef } from '@angular/core';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  Validators,
-} from '@angular/forms';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @angular-eslint/no-input-rename */
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Component, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-uploader-dnd',
+  standalone: true,
+  imports: [MatIcon],
   templateUrl: './uploader-dnd.component.html',
   styleUrls: ['./uploader-dnd.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => UploaderDndComponent),
-    },
-  ],
+      useExisting: forwardRef(() => UploaderDndComponent)
+    }
+  ]
 })
 export class UploaderDndComponent implements ControlValueAccessor {
-  @Input('value') _value: File = null;
+  @Input('value') _value: File | null = null;
   @Input() accept?: string;
 
-  onChange: any = () => {};
-  onTouched: any = () => {};
-
-  constructor() {}
+  onChange = (val: File | null) => {};
+  onTouched = () => {};
 
   get value() {
     return this._value;
@@ -36,15 +35,15 @@ export class UploaderDndComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  registerOnChange(fn) {
+  registerOnChange(fn: (val: File | null) => void) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn) {
+  registerOnTouched(fn: () => void) {
     this.onTouched = fn;
   }
 
-  writeValue(value) {
+  writeValue(value: File | null) {
     if (value) {
       this.value = value;
     }

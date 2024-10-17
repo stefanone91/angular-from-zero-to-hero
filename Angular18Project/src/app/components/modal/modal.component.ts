@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal',
+  standalone: true,
+  imports: [MatDialogModule, MatButton],
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
+  styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
-  constructor(private readonly dialog: MatDialog) {}
+export class ModalComponent {
+  private readonly dialog = inject(MatDialog);
 
-  ngOnInit(): void {}
-
-  handleDialogOpen() {
-    // Not injected dynamically
+  async handleDialogOpen() {
+    const { ConfirmDialogComponent } = await import('./confirm-dialog/confirm-dialog.component');
     this.dialog.open(ConfirmDialogComponent);
   }
 }

@@ -8,9 +8,8 @@ describe('HeavypageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeavypageComponent ]
-    })
-    .compileComponents();
+      declarations: [HeavypageComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

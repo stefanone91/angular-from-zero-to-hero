@@ -1,31 +1,23 @@
 import { Injectable } from '@angular/core';
-import { PDFDocument } from 'pdf-lib';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PdfService {
-  constructor() {}
-
   async convertImageToPDF(image: Blob) {
+    const { PDFDocument } = await import('pdf-lib');
     const pdfDoc = await PDFDocument.create();
 
-    const pngImageBytes =
-      image instanceof ArrayBuffer ? image : await image.arrayBuffer();
+    const pngImageBytes = image instanceof ArrayBuffer ? image : await image.arrayBuffer();
     const pngImage = await pdfDoc.embedPng(pngImageBytes);
     const page = pdfDoc.addPage();
 
-    const test = calculateAspectRatioFit(
-      pngImage.width,
-      pngImage.height,
-      page.getWidth(),
-      page.getHeight()
-    );
+    const test = calculateAspectRatioFit(pngImage.width, pngImage.height, page.getWidth(), page.getHeight());
     page.drawImage(pngImage, {
       x: page.getWidth() / 2 - test.width / 2,
       y: page.getHeight() / 2 - test.height / 2,
       width: test.width,
-      height: test.height,
+      height: test.height
     });
 
     const pdfBytes = await pdfDoc.save();
@@ -47,12 +39,7 @@ export class PdfService {
   }
 }
 
-function calculateAspectRatioFit(
-  srcWidth: number,
-  srcHeight: number,
-  maxWidth: number,
-  maxHeight: number
-) {
+function calculateAspectRatioFit(srcWidth: number, srcHeight: number, maxWidth: number, maxHeight: number) {
   const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 }

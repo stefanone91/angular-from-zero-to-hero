@@ -8,9 +8,8 @@ describe('UnsubscribeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnsubscribeComponent ]
-    })
-    .compileComponents();
+      declarations: [UnsubscribeComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

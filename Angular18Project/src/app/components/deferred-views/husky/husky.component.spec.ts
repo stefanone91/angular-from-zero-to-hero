@@ -8,9 +8,8 @@ describe('HuskyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HuskyComponent ]
-    })
-    .compileComponents();
+      declarations: [HuskyComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {
